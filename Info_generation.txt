@@ -1,0 +1,89 @@
+Generation process for singly-doubly charged Higgs
+
+
+1.Take the Madgraph (https://launchpad.net/mg5amcnlo)- eg(v3.5.3)
+
+  Madgraph_tutorial:
+
+  https://www.researchgate.net/publication/342521364_Madgraph_Installation_Tutorial
+  
+  In the new directory install the followings:
+  
+  ./bin/mg5_aMC  
+
+   install Delphes
+
+   install pythia8 
+   
+   Our model Type-II_seesaw_mix_UFO, has to be introduce in the models folder.
+   
+ 
+ 
+ 2. Create your own data file to be used for the mass points generation:(e.g: data_300_295_WW.dat)
+ 
+===================================================================
+import model Type-II_seesaw_mix_UFO
+
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define Hpp = H++ H--
+define Hp = H+ H-
+define W = w+ w-
+define Z = z
+define vl~ = ve vm vt
+
+generate p p > Hpp Hpp 
+
+output mHpp300_mH296_WW_50K_13TeV
+launch--name=300_296gev-dm8
+shower=Pythia8
+detector=Delphes
+madspin=ON
+set spinmode full
+
+decay Hpp > W W
+
+set nevents 50
+set iseed  134
+set LHC 13
+
+#set ebeam1 6800
+#set ebeam2  6800
+set cut_decays F
+set pdlabel lhapdf 
+set lhaid 303000
+#set lhaid 303200
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+/data/analysis/atudorac/MG5_aMC_v3_5_3/delphes_card_ATLAS.dat // atlas card was modified by us 
+set wh__2 auto
+set wha auto
+set whp auto
+set whpp auto
+set mHpp 300   // here set the mass points that you want to generate and the parameters are provided by Mathematica 
+set mHp 296.005
+set mha 291.956
+set mh__2 291.956
+set mh 125
+set sinalpha 0.0008
+set mu  0.199195
+set lam  0.516394
+set lam1 0.710579
+set lam2 0.403454510208
+set lam3 0.163018451623
+set lam4 -0.157377
+===============================================================
+
+3. Run de example : ./bin/mg5_aMC  data_300_295_WW.dat 
+
+   Have the output :  mHpp300_mH296_WW_50K_13TeV , and here are going to find all the info about the generation.
+   
+   In Cards folder find the param_card.dat with info about BR,widths etc. 
+   
+   In Events  folder  the root file genetared and used for the analysis. 
+
+     
