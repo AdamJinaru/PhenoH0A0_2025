@@ -1,0 +1,3 @@
+[submodule "Generate_run_MGpoints"]
+	path = Generate_run_MGpoints
+	url = https://github.com/AdamJinaru/Generate_run_MGpoints.git
